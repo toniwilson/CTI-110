@@ -22,7 +22,7 @@ grades.append(module_6)
 print()
 print("-------------------Results-------------------")
 print()
-average = (sum(grades)//len(grades))
+average = (sum(grades)/len(grades))
 
 print(f"{'Lowest Grade:':<18}{min(grades):<25}")
 print(f"{'Highest Grade:':<18}{max(grades):<25}")
