@@ -1,48 +1,53 @@
-# Toni Wilson
-# 10-09-2024
-# P2HW2
-# Using branching to determine letter grade
+# Wilson Toni
+# 10-23-2024
+# P3HW1
+# This program takes a number grade , determines average and displays letter grade for average.
 
-grades = []
+# Enter grades for six modules
 
-module_1 = float(input("Enter grade for Module 1: "))
-module_2 = float(input("Enter grade for Module 2: "))
-module_3 = float(input("Enter grade for Module 3: "))
-module_4 = float(input("Enter grade for Module 4: "))
-module_5 = float(input("Enter grade for Module 5: "))
-module_6 = float(input("Enter grade for Module 6: "))
+mod_1 = float(input("Enter grade for Module 1: "))
+mod_2 = float(input("Enter grade for Module 2: "))
+mod_3 = float(input("Enter grade for Module 3: "))
+mod_4 = float(input("Enter grade for Module 4: "))
+mod_5 = float(input("Enter grade for Module 5: "))
+mod_6 = float(input("Enter grade for Module 6: "))
 
-grades.append(module_1)
-grades.append(module_2)
-grades.append(module_3)
-grades.append(module_4)
-grades.append(module_5)
-grades.append(module_6)
+# add grades entered to a list
+
+grades = [mod_1, mod_2, mod_3, mod_4, mod_5, mod_6]
 
 print()
 print("-------------------Results-------------------")
 print()
-average = (sum(grades)/len(grades))
 
-print(f"{'Lowest Grade:':<18}{min(grades):<25}")
-print(f"{'Highest Grade:':<18}{max(grades):<25}")
-print(f"{'Sum of Grades:':<18}{sum(grades):<25}")
-print(f"{'Average:':<18}{average:<25,.2f}")
+# TO DO: determine lowest, highest , sum and average for grades
+
+low = min(grades)
+high = max(grades)
+total = sum(grades)
+avg = (sum(grades)/len(grades))
+
+print(f"{'Lowest grade: ':<18}{low:<25}")
+print(f"{'Highest grade: ':<18}{high:<25}")
+print(f"{'Sum of grades: ':<18}{total:<25}")
+print(f"{'Average grade: ':<18}{avg:<25,.2f}")
 print()
 print("---------------------------------------------")
 print()
+# determine letter grade for average
 
-# Create branching to get letter grade
-if average >= 90:
-    letter_grade = "A"
-elif average >= 80:
-    letter_grade = "B"
-elif average >= 70:
-    letter_grade = "C"
-elif average >= 60:
-    letter_grade = "D"
+if avg >= 90:
+    print('Your grade is: A')
+elif avg >= 80:
+    print('Your grade is: B')
+elif avg >= 70:
+    print('Your grade is: C')
+elif avg >= 60:
+    print('Your grade is: D')
 else:
-    letter_grade = "F"
+    print('Your grade is: F')
 
-# Display results
-print(f"Your grade is: {letter_grade}")
+
+
+
+
