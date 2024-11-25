@@ -76,12 +76,12 @@ def forest_path(character):
                 print_slow(f"You discovered a {treasure}!")
                 print_slow(f"{treasure} has been added to your inventory.")
                 display_character_status(character)
-            else:
-                treasure_trap = random.choice(['Poisonous Spider'])
-                damage = random.randint(15, 35)
-                character['hp'] -= damage
-                print_slow(f"You discovered a {treasure_trap}!!! You lost {damage} HP!!!")
-                display_character_status(character)
+        else:
+            treasure_trap = random.choice(['Poisonous Spider'])
+            damage = random.randint(15, 35)
+            character['hp'] -= damage
+            print_slow(f"You discovered a {treasure_trap}!!! You lost {damage} HP!!!")
+            display_character_status(character)
         return character
 
 def bridge_path(character):
