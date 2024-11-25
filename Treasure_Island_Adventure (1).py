@@ -43,7 +43,6 @@ def display_character_status(character):
 def battle(attacker, defender):
     damage = random.randint(0, attacker['damage'])
     defender['hp'] -= damage
-    defender['hp'] = max(defender['hp'] - damage, 0)
     return defender
 
 def take_damage(character, amount):
@@ -88,36 +87,40 @@ def forest_path(character):
 def bridge_path(character):
 
     while True:
-        bridge_choice = input("\nYou see the bridge has two paths. Would you like to cross? (yes/no) ").lower()
+        bridge_choice = input("\nYou see the bridge has two paths. Would you like to 'cross' or 'look around'? ").lower()
 
-        if bridge_choice == 'yes':
+        if bridge_choice == 'look around':
+            print_slow("\nYou stand still and observe the area around.")
+            time.sleep(1)
+
+            print_slow("\nYou find a safer route and continue on with your adventure.")
+            time.sleep(1)
+
+            return character
+
+        elif bridge_choice == 'cross':
             print_slow("\n You decide to cross the bridge despite the decrapid state...")
             time.sleep(1)
 
             print_slow("\nThe bridge gives out under your weight.")
             time.sleep(1)
 
-            print_slow("\nYou fall, instantly impaled on the sharp rocks.")
+            print_slow("\nYou fall impaled on the sharp rocks.")
             time.sleep(1)
 
             print_slow("\nGAME OVER!!!")
-
-            return
+            character['hp'] = 0
+            return character
         else:
-            print_slow("\nYou stand still and observe the area around.")
-            time.sleep(1)
-
-            print_slow("\nYou find a safer route and continue on with your adventure.")
-            time.sleep(1)
-        return character
+            print_slow("Invalid choice. Try again!")
     
 def mountain_path(character):
 
     print_slow("You find yourself climbing the steep mountains...")
     time.sleep(1)
 
-    print_slow("You come across an old mansion...")
-    time.sleep(1)
+    print_slow("You come across an old mansion")
+    time.sleep
 
     while True:
         mountain_choice = input("Which door would you like to go through? 'WHITE DOOR', 'BLUE DOOR', RED DOOR': ").lower()
@@ -126,31 +129,33 @@ def mountain_path(character):
             print_slow("\nA bright light blinds you for a minute...")
             print_slow("\nThe screen flashes ⚠️ WARNING ⚠️")
             print_slow("\nHeadset battery low. Game Over!")
+            character['hp'] = 0
             time.sleep(1)
-            return
+
+            return character
         elif mountain_choice == 'blue door':
             print_slow("\nYou have found the treaure room!")
             time.sleep(1)
+            
+            treasures = [
+                "sword",
+                "jeweled dagger",
+                "mystic amulet"
+            ]
+            treasure = random.choice(treasures)
 
-            if random.random()< 0.5:
-                treasure = random.choice(['Shield🛡️', 'Jeweled Dagger ⚔️', 'Mystic Amulet ✨'])
-                character['inventory'].append(treasure)
-                print_slow(f"You discovered a {treasure}!")
-                print_slow(f"{treasure} has been added to your inventory.")
-                display_character_status(character)
-            else:
-                treasure_trap = random.choice(['Venomous Snake'])
-                damage = random.randint(15, 35)
-                character['hp'] -= damage
-                print_slow(f"You discovered a {treasure_trap}!!! You lost {damage} HP!!!")
-                display_character_status(character)
+            character['inventory'].append(treasure)
+            print_slow(f"You discovered a {treasure}!")
+            print_slow(f"{treasure} has been added to your inventory.")
+            display_character_status(character)
             return character
         elif mountain_choice == 'red door':
             print_slow("\n OH NO! You've triggered a trap.")
             time.sleep(1)
 
             print_slow("GAME OVER!!!")
-            return
+            character['hp'] = 0
+            return character 
         else:
             print("\nInvalid choice. Try again!")
         return character
@@ -252,12 +257,18 @@ def main ():
         if choice1 == '1' and "forest" not in character ['visited_paths']:
             character = forest_path(character)
             character['visited_paths'].append("forest")
+            if character['hp'] <= 0:
+                break
         elif choice1 == '2' and "bridge" not in character['visited_paths']:
             character = bridge_path(character)
             character['visited_paths'].append("bridge")
+            if character['hp'] <= 0:
+                break
         elif choice1 == '3' and "mountain" not in character['visited_paths']:
             character = mountain_path(character)
             character['visited_paths'].append("mountain")
+            if character['hp'] <= 0:
+                break
         elif choice1 == '4':
             if len(character['visited_paths']) < 3:
                 print("\n⚠️  You should explore more paths before facing the final boss!")
@@ -270,6 +281,7 @@ def main ():
             break
         else:
             print("\n❌ Invalid choice or path already visited!")
+            
 
         if character['game_complete']:  # Check if game is complete
             print("\n🎊 Thank you for playing! You've completed the game! 🎊")
